@@ -6,7 +6,9 @@ Django Setuptest
 .. contents:: Contents
     :depth: 5
 
+
 Normally when you execute ``$ python setup.py test`` for Django related modules you're almost certain to run into ``DJANGO_SETTINGS_MODULE`` environment variable issues, e.g.::
+
     ImportError: Settings cannot be imported, because environment variable DJANGO_SETTINGS_MODULE is undefined.
 
 This module overcomes this by configuring the ``DJANGO_SETTINGS_MODULE`` environment variable before executing your test suite. As a bonus it also generates `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports as part of the test.
