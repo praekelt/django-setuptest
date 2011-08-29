@@ -45,7 +45,7 @@ Installation
         ],
     )
 
-#. Specify the test specific Django settings in a ``settings`` module within the test suite, e.g. in ``my_django_package/tests/settings.py``::
+#. Specify the test specific Django settings in a ``settings`` module within the test suite. These setting will be used when executing the tests, e.g. in ``my_django_package/tests/settings.py``::
 
     DATABASE_ENGINE = 'sqlite3'
 
