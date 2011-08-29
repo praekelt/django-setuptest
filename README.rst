@@ -36,7 +36,7 @@ Installation
         test_suite = "my_django_package.tests"
     )
 
-#. Provide a ``tests_require`` argument to the setup call including ``django-setuptest`` and other package dependencies required to execute the tests, e.g.::
+#. Provide a ``tests_require`` argument to the setup call including ``django-setuptest`` (required) and other package dependencies required to execute the tests, e.g.::
 
     setup(
         # ...
@@ -45,7 +45,7 @@ Installation
         ],
     )
 
-# Specify the test specific Django settings in a ``settings`` module within the test suite, e.g. in ``my_django_package/tests/settings.py``::
+#. Specify the test specific Django settings in a ``settings`` module within the test suite, e.g. in ``my_django_package/tests/settings.py``::
 
     DATABASE_ENGINE = 'sqlite3'
 
