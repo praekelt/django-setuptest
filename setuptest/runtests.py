@@ -2,6 +2,7 @@ import sys
 import pep8
 
 from coverage import coverage
+from distutils import log
 from django.conf import settings
 from importlib import import_module
 from StringIO import StringIO
@@ -41,26 +42,29 @@ def runpep8(package):
     else:
         return 'PEP8 Correct.'
 
-def runtests(test_suite):
+def runtests(test, test_suite):
     module = test_suite.split('.')[0]
     init(test_suite)
 
     from django.test.simple import run_tests
     # Start coverage.
-    cov = coverage()
-    cov.start()
+    if test.verbose:
+        cov = coverage()
+        cov.start()
 
     # Run tests.
     failures = run_tests((module,), verbosity=1, interactive=True)
    
-    # Stop and generate coverage report.
-    cov.stop()
-    print "\nCoverage Report:"
-    cov.report(include=['%s*' % module,])
-    cov.xml_report(include=['%s*' % module,])
+    if test.verbose:
+        # Stop and generate coverage report.
+        cov.stop()
 
-    print "\nPEP8 Report:"
-    print runpep8(module)
+        log.info("\nCoverage Report:")
+        log.info(cov.report(include=['%s*' % module,]))
+        cov.xml_report(include=['%s*' % module,])
+
+        log.info("\nPEP8 Report:")
+        log.info(runpep8(module))
 
     sys.exit(failures)
 
