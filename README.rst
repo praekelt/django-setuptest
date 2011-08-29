@@ -59,7 +59,7 @@ Once correctly configured you can execute tests from the command line::
     
     $ python setup.py test
 
-This should output your test results as well as `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports. *Note that an XML Coverage report is generated in a file called coverage.xml, and a PEP8 report is generated in a file called pep8.txt*
+This should output your test results as well as `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports. *Note that an XML Coverage report is generated in a file called coverage.xml and a PEP8 report is generated in a file called pep8.txt*
 
 To mute the output of `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports provide the ``--quiet`` option::
         
