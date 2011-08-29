@@ -67,6 +67,7 @@ Sample Output
 -------------
 
 Example output of dummy test including Coverage and PEP 8 reports::
+
     $ python setup.py test
     running test
     running egg_info
