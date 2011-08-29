@@ -16,7 +16,7 @@ This module overcomes this by configuring the ``DJANGO_SETTINGS_MODULE`` environ
 Installation
 ------------
 
-#. Add the following to the the ``setup.py`` file **before** the setup call::
+#. Add the following to the package's ``setup.py`` file **before** the setup call::
 
     from setuptools.command.test import test
 
@@ -59,7 +59,7 @@ Once correctly installed you can execute the tests from the command line::
     
     $ python setup.py test
 
-This should output your test results as well as `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports. *Note that an XML Coverage report is generated in file called coverage.xml, and a PEP8 report is generated in a file called pep8.txt*
+This should output your test results as well as `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports. *Note that an XML Coverage report is generated in a file called coverage.xml, and a PEP8 report is generated in a file called pep8.txt*
 
 To mute the output of `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports provide the ``--quiet`` option::
         
