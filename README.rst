@@ -1,11 +1,15 @@
 Django Setuptest
 ================
-**Simple lib enabling Django app testing via $python setup.py test.**
+**Simple module enabling Django app testing via $ python setup.py test.**
 
 
 .. contents:: Contents
     :depth: 5
 
+Normally when you execute ``$ python setup.py test`` for Django related modules you're almost certain to run into ``DJANGO_SETTINGS_MODULE`` environment variable issues, e.g.::
+    ImportError: Settings cannot be imported, because environment variable DJANGO_SETTINGS_MODULE is undefined.
+
+This module overcomes this by configuring the ``DJANGO_SETTINGS_MODULE`` environment variable before executing your test suite. As a bonus it also generates `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports as part of the test.
 
 Installation
 ------------
@@ -49,7 +53,7 @@ Once correctly installed you can execute the tests from the command line::
     
     $ python setup.py test
 
-To mute coverage and pep8 output and report generation provide the ``--quiet`` option::
+To mute the output of `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports provide the ``--quiet`` option::
         
     $ python setup.py test --quiet
 
