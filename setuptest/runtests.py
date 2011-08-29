@@ -8,15 +8,19 @@ from importlib import import_module
 from StringIO import StringIO
 
 def init(test_suite):
-    test_settings = import_module('%s.settings' % test_suite)
+    try:
+        test_settings = import_module('%s.settings' % test_suite)
+    except ImportError:
+        log.info('ImportError: Unable to import %s.settings' % test_suite)
+        sys.exit(1)
 
-    foo_settings = {}
+    setting_attrs = {}
     for attr in dir(test_settings):
         if '__' not in attr:
-            foo_settings[attr] = getattr(test_settings, attr)
+            setting_attrs[attr] = getattr(test_settings, attr)
 
     if not settings.configured:
-        settings.configure(**foo_settings)
+        settings.configure(**setting_attrs)
 
 def runpep8(package):
     # Hook into stdout.
