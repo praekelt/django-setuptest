@@ -11,6 +11,11 @@ setup(
     url='http://github.com/praekelt/django-setuptest',
     packages=find_packages(),
     include_package_data=True,
+    tests_require=[
+        'coverage',
+        'django',        
+        'pep8',
+    ],
     classifiers=[
         "Programming Language :: Python",
         "License :: OSI Approved :: BSD License",

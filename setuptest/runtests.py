@@ -42,7 +42,8 @@ def runpep8(package):
     else:
         return None
 
-def runtests(test, test_suite):
+def runtests(test):
+    test_suite = test.test_suite
     module = test_suite.split('.')[0]
     init(test_suite)
 
