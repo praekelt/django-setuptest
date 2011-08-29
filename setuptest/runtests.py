@@ -40,7 +40,7 @@ def runpep8(package):
     if result:
         return result
     else:
-        return 'PEP8 Correct.'
+        return None
 
 def runtests(test, test_suite):
     module = test_suite.split('.')[0]
@@ -58,13 +58,15 @@ def runtests(test, test_suite):
     if test.verbose:
         # Stop and generate coverage report.
         cov.stop()
-
         log.info("\nCoverage Report:")
-        log.info(cov.report(include=['%s*' % module,]))
-        cov.xml_report(include=['%s*' % module,])
+        cov.report(include=['%s*' % module,], omit=['*tests*',])
+        cov.xml_report(include=['%s*' % module,], omit=['*tests*',])
 
-        log.info("\nPEP8 Report:")
-        log.info(runpep8(module))
+        # Generate PEP8 report.
+        pep_result = runpep8(module)
+        if pep_result:
+            log.info("\nPEP8 Report:")
+            log.info(pep_result)
 
     sys.exit(failures)
 
