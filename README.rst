@@ -25,6 +25,10 @@ Installation
         return runtests(self)
     test.run_tests = run_tests
 
+    setup(
+        # ...
+    )
+
 #. Provide a ``test_suite`` argument to the setup call specifying the test suite, e.g.::
 
     setup(
