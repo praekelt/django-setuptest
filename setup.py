@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-setuptest',
-    version='0.0.1',
-    description='Simple lib enabling Django app testing via $python setup.py test',
+    version='0.0.2',
+    description='Simple module enabling Django app testing via $ python setup.py test',
     long_description=open('README.rst', 'r').read() + open('AUTHORS.rst', 'r').read() + open('CHANGELOG.rst', 'r').read(),
     author='Praekelt Foundation',
     author_email='dev@praekelt.com',

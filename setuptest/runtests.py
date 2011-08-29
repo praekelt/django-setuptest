@@ -29,6 +29,7 @@ def runpep8(package):
 
     # Run Pep8 checks.
     pep8.options, pep8.args = pep8.process_options()
+    pep8.options.repeat = True
     pep8.input_dir(package)
 
     # Restore stdout.
