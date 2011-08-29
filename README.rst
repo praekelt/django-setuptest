@@ -55,7 +55,7 @@ Installation
 
 Usage
 -----
-Once correctly installed you can execute the tests from the command line::
+Once correctly configured you can execute tests from the command line::
     
     $ python setup.py test
 
