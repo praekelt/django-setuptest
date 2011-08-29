@@ -11,7 +11,7 @@ setup(
     url='http://github.com/praekelt/django-setuptest',
     packages=find_packages(),
     include_package_data=True,
-    tests_require=[
+    install_requires=[
         'coverage',
         'django',        
         'pep8',
