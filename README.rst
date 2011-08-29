@@ -63,3 +63,44 @@ To mute the output of `Coverage <http://nedbatchelder.com/code/coverage/>`_ and 
         
     $ python setup.py test --quiet
 
+Sample Output
+-------------
+
+Example output of dummy test including Coverage and PEP 8 reports::
+    $ python setup.py test
+    running test
+    running egg_info
+    writing django_dummy.egg-info/PKG-INFO
+    writing top-level names to django_dummy.egg-info/top_level.txt
+    writing dependency_links to django_dummy.egg-info/dependency_links.txt
+    reading manifest file 'django_dummy.egg-info/SOURCES.txt'
+    reading manifest template 'MANIFEST.in'
+    writing manifest file 'django_dummy.egg-info/SOURCES.txt'
+    running build_ext
+    Creating test database for alias 'default'...
+    E
+    ======================================================================
+    ERROR: test_something (dummy.tests.TestCase)
+    ----------------------------------------------------------------------
+    Traceback (most recent call last):
+      File "/home/shaun/tmp/django-dummy/dummy/tests/__init__.py", line 6, in test_something
+        raise NotImplementedError('Test not implemented. Bad developer!')
+    NotImplementedError: Test not implemented. Bad developer!
+    
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.000s
+    
+    FAILED (errors=1)
+    Destroying test database for alias 'default'...
+    
+    Coverage Report:
+    Name              Stmts   Miss  Cover   Missing
+    -----------------------------------------------
+    dummy/models      20      2    90%   22, 55
+    
+    PEP8 Report:
+    dummy/tests/settings.py:6:1: W391 blank line at end of file
+
+    $
+
+
