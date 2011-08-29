@@ -10,9 +10,7 @@ Django Setuptest
 Installation
 ------------
 
-#. Install or add ``django-setuptest`` to your Python path.
-
-#. Add the following to the your setup.py file **before** the setup call::
+#. Add the following to the the ``setup.py`` file **before** the setup call::
 
     from setuptools.command.test import test
 
@@ -21,14 +19,23 @@ Installation
         return runtests(self)
     test.run_tests = run_tests
 
-#. Provide a ``test_suite`` argument to your setup call specifying the test suite, e.g.::
+#. Provide a ``test_suite`` argument to the setup call specifying the test suite, e.g.::
 
     setup(
         # ...
         test_suite = "my_django_package.tests"
     )
 
-# Specify your test specific Django settings in a ``settings`` module within your test suite, e.g. in ``my_django_package/tests/settings.py``::
+#. Provide a ``tests_require`` argument to the setup call including ``django-setuptest`` and other package dependencies required to execute the tests, e.g.::
+
+    setup(
+        # ...
+        tests_require=[
+            'django-setuptest',
+        ],
+    )
+
+# Specify the test specific Django settings in a ``settings`` module within the test suite, e.g. in ``my_django_package/tests/settings.py``::
 
     DATABASE_ENGINE = 'sqlite3'
 
@@ -38,8 +45,11 @@ Installation
 
 Usage
 -----
-Once correctly installed you can execute your tests from the command line::
+Once correctly installed you can execute the tests from the command line::
     
     $ python setup.py test
 
+To mute coverage and pep8 output and report generation provide the ``--quiet`` option::
+        
+    $ python setup.py test --quiet
 
