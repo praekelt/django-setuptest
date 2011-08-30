@@ -45,7 +45,7 @@ Installation
         ],
     )
 
-#. Specify the test specific Django settings in a ``settings`` module within the test suite. These setting will be used when executing the tests, e.g. in ``my_django_package/tests/settings.py``::
+#. Specify the test specific Django settings in a ``test_settings`` module in the same path as ``setup.py``. These setting will be used when executing the tests, e.g. in ``test_settings.py``::
 
     DATABASE_ENGINE = 'sqlite3'
 
@@ -102,7 +102,7 @@ Example output of dummy test including `Coverage <http://nedbatchelder.com/code/
     dummy/models      20      2    90%   22, 55
     
     PEP8 Report:
-    dummy/tests/settings.py:6:1: W391 blank line at end of file
+    dummy/tests/__init__.py:6:1: W391 blank line at end of file
 
     $
 
