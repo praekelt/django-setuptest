@@ -4,14 +4,14 @@ import pep8
 from coverage import coverage
 from distutils import log
 from django.conf import settings
-from importlib import import_module
 from StringIO import StringIO
+
 
 def init(test_suite):
     try:
-        test_settings = import_module('%s.settings' % test_suite)
-    except ImportError:
-        log.info('ImportError: Unable to import %s.settings' % test_suite)
+        test_settings = __import__('test_settings')
+    except ImportError, e:
+        log.info('ImportError: Unable to import test settings.')
         sys.exit(1)
 
     setting_attrs = {}
