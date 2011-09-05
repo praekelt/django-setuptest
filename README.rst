@@ -6,52 +6,56 @@ Django Setuptest
 .. contents:: Contents
     :depth: 5
 
+Normally when you execute ``$ python setup.py test`` for Django related
+modules you're almost certain to run into ``DJANGO_SETTINGS_MODULE``
+environment variable issues, e.g.::
 
-Normally when you execute ``$ python setup.py test`` for Django related modules you're almost certain to run into ``DJANGO_SETTINGS_MODULE`` environment variable issues, e.g.::
+    ImportError: Settings cannot be imported, because environment variable
+    DJANGO_SETTINGS_MODULE is undefined.
 
-    ImportError: Settings cannot be imported, because environment variable DJANGO_SETTINGS_MODULE is undefined.
+This module overcomes this by configuring the ``DJANGO_SETTINGS_MODULE``
+environment variable before executing your test suite. As a bonus it also
+generates Coverage_ and `PEP 8`_ reports as part of the test.
 
-This module overcomes this by configuring the ``DJANGO_SETTINGS_MODULE`` environment variable before executing your test suite. As a bonus it also generates `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports as part of the test.
 
 Installation
 ------------
 
-#. Add the following to the package's ``setup.py`` file **before** the setup call::
+#. Add the following to the app's ``__init__.py`` file::
 
-    from setuptools.command.test import test
+    def test_suite():
+        import setuptest
+        return setuptest.suite(__name__)
 
-    def run_tests(self):
-        from setuptest.runtests import runtests
-        return runtests(self)
-    test.run_tests = run_tests
+#. Provide a ``test_suite`` argument to the setup call specifying the
+   test suite callback defined in the first step, e.g.::
 
     setup(
         # ...
+        test_suite='myapp.test_suite',
     )
 
-#. Provide a ``test_suite`` argument to the setup call specifying the test suite, e.g.::
+#. Provide a ``tests_require`` argument to the setup call including
+   ``django-setuptest`` (required) and other package dependencies needed
+   to execute the tests, e.g.::
 
     setup(
         # ...
-        test_suite = "my_django_package.tests"
-    )
-
-#. Provide a ``tests_require`` argument to the setup call including ``django-setuptest`` (required) and other package dependencies needed to execute the tests, e.g.::
-
-    setup(
-        # ...
-        tests_require=[
+        tests_require=(
             'django-setuptest',
-        ],
+        ),
     )
 
-#. Specify the test specific Django settings in a ``test_settings`` module in the same path as ``setup.py``. These setting will be used when executing the tests, e.g. in ``test_settings.py``::
+#. Specify the test specific Django settings in a ``test_settings``
+   module in your app same path as your app's ``__init__.py``.
+   These settings will be used when executing the tests, e.g. in
+   ``myapp/test_settings.py``::
 
     DATABASE_ENGINE = 'sqlite3'
 
-    INSTALLED_APPS = [
-        'my_django_package',
-    ]
+    INSTALLED_APPS = (
+        'myapp',
+    )
 
 Usage
 -----
@@ -59,16 +63,23 @@ Once correctly configured you can execute tests from the command line::
     
     $ python setup.py test
 
-This should output your test results as well as `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports. *Note that an XML Coverage report is generated in a file called coverage.xml and a PEP8 report is generated in a file called pep8.txt*
+This should output your test results as well as Coverage_ and `PEP 8`_
+reports.
 
-To mute the output of `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports provide the ``--quiet`` option::
-        
+.. note::
+
+    An XML Coverage report is generated in a file called ``coverage.xml``
+    and a PEP8 report is generated in a file called ``pep8.txt``
+
+To mute the output of the Coverage_ and `PEP 8`_ reports provide the
+``--quiet`` option::
+
     $ python setup.py test --quiet
 
 Sample Output
 -------------
 
-Example output of dummy test including `Coverage <http://nedbatchelder.com/code/coverage/>`_ and `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_ reports::
+Example output of dummy test including Coverage_ and `PEP 8`_ reports::
 
     $ python setup.py test
     running test
@@ -107,3 +118,5 @@ Example output of dummy test including `Coverage <http://nedbatchelder.com/code/
     $
 
 
+.. _Coverage: http://nedbatchelder.com/code/coverage/
+.. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
