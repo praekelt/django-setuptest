@@ -1,19 +1,27 @@
-from setuptools import setup, find_packages
+import codecs
+from os import path
+from setuptools import setup
+
+
+def read(filepath):
+    filepath = path.join(path.dirname(__file__), filepath)
+    return codecs.open(filepath, 'r', 'utf-8').read()
+
+description = read('README.rst') + read('AUTHORS.rst') + read('CHANGELOG.rst')
 
 setup(
     name='django-setuptest',
     version='0.0.3',
     description='Simple module enabling Django app testing via $ python setup.py test',
-    long_description=open('README.rst', 'r').read() + open('AUTHORS.rst', 'r').read() + open('CHANGELOG.rst', 'r').read(),
+    long_description=description,
     author='Praekelt Foundation',
     author_email='dev@praekelt.com',
     license='BSD',
     url='http://github.com/praekelt/django-setuptest',
-    packages=find_packages(),
-    include_package_data=True,
+    py_modules=['setuptest'],
     install_requires=[
         'coverage',
-        'django',        
+        'django',
         'pep8',
     ],
     classifiers=[
