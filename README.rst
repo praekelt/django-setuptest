@@ -21,18 +21,12 @@ generates Coverage_ and `PEP 8`_ reports as part of the test.
 Installation
 ------------
 
-#. Add the following to the app's ``__init__.py`` file::
-
-    def test_suite():
-        import setuptest
-        return setuptest.suite(__name__)
-
 #. Provide a ``test_suite`` argument to the setup call specifying the
-   test suite callback defined in the first step, e.g.::
+   the ``setuptest`` package's test suite, e.g.::
 
     setup(
         # ...
-        test_suite='myapp.test_suite',
+        test_suite='setuptest.test_suite',
     )
 
 #. Provide a ``tests_require`` argument to the setup call including
@@ -47,9 +41,9 @@ Installation
     )
 
 #. Specify the test specific Django settings in a ``test_settings``
-   module in your app same path as your app's ``__init__.py``.
+   module in the same path as your app's ``setup.py``.
    These settings will be used when executing the tests, e.g. in
-   ``myapp/test_settings.py``::
+   ``test_settings.py``::
 
     DATABASE_ENGINE = 'sqlite3'
 
