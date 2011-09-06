@@ -19,7 +19,6 @@ setup(
     license='BSD',
     url='http://github.com/praekelt/django-setuptest',
     packages=find_packages(),
-    include_package_data=True,
     install_requires=[
         'coverage',
         'django',
