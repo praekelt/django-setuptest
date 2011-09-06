@@ -14,7 +14,7 @@ class SetupTestSuite(unittest.TestSuite):
         from django.conf import settings
         from django.utils.importlib import import_module
         try:
-            test_settings = import_module('%s.test_settings' % self.label)
+            test_settings = import_module('test_settings')
         except ImportError, e:
             log.info('ImportError: Unable to import test settings: %s' % e)
             sys.exit(1)
@@ -38,8 +38,19 @@ class SetupTestSuite(unittest.TestSuite):
         if '.' in self.label:
             self.addTest(build_test(self.label))
         else:
-            app = get_app(self.label)
-            self.addTest(build_suite(app))
+            import sys
+            f = sys._getframe()
+            while f:
+                if 'self' in f.f_locals:
+                    locals_self = f.f_locals['self']
+                    py_modules = getattr(locals_self, 'py_modules', None)
+                    if py_modules:
+                        for module in py_modules:
+                            app = get_app(module)
+                            self.addTest(build_suite(app))
+                            break
+                f = f.f_back
+
         self.old_config = self.test_runner.setup_databases()
 
     def run(self, *args, **kwargs):
