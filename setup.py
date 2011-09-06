@@ -1,6 +1,6 @@
 import codecs
 from os import path
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def read(filepath):
@@ -18,7 +18,8 @@ setup(
     author_email='dev@praekelt.com',
     license='BSD',
     url='http://github.com/praekelt/django-setuptest',
-    py_modules=['setuptest'],
+    packages=find_packages(),
+    include_package_data=True,
     install_requires=[
         'coverage',
         'django',
