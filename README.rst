@@ -52,7 +52,7 @@ Installation
     )
 
 #. In order for the test suite to find your tests you must provide 
-either a ``packages`` or ``py_modules`` argument to the setup call, e.g.::
+   either a ``packages`` or ``py_modules`` argument to the setup call, e.g.::
    
    from setuptools import setup, find_packages
 
