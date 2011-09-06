@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.0.5 (2011-09-06)
+------------------
+#. Added frame hack to resolve packages and py_modules to test, no longer needs app specific test suite.
+
 0.0.4 (2011-09-06)
 ------------------
 #. Refactored the app to use a callback style approach instead of monkey patching. Thanks `jezdez <https://github.com/jezdez>`_.
