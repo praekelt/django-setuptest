@@ -54,15 +54,14 @@ Installation
 #. In order for the test suite to find your tests you must provide either a ``packages`` or ``py_modules`` argument to the setup call, e.g.::
    
    from setuptools import setup, find_packages
-   
    setup(
         # ...
         packages=find_packages(),
     )
-
-   # Or alternatively...
-   
-   setup(
+    
+    # Or alternatively...
+    
+    setup(
         # ...
         py_modules=['myapp'],
     )
