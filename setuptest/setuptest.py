@@ -38,17 +38,26 @@ class SetupTestSuite(unittest.TestSuite):
         if '.' in self.label:
             self.addTest(build_test(self.label))
         else:
+            # Inspect frame to resolve package/modules to test.
             import sys
             f = sys._getframe()
             while f:
                 if 'self' in f.f_locals:
                     locals_self = f.f_locals['self']
                     py_modules = getattr(locals_self, 'py_modules', None)
-                    if py_modules:
-                        for module in py_modules:
-                            app = get_app(module)
+                    packages = getattr(locals_self, 'packages', None)
+
+                    if py_modules or packages:
+                        apps = set()
+                        if py_modules:
+                            apps.update(set(py_modules))
+                        if packages:
+                            apps.update(set(packages))
+
+                        for app_label in apps:
+                            app = get_app(app_label)
                             self.addTest(build_suite(app))
-                            break
+                        break
                 f = f.f_back
 
         self.old_config = self.test_runner.setup_databases()
