@@ -120,3 +120,4 @@ Example output of dummy test including Coverage_ and `PEP 8`_ reports::
 
 .. _Coverage: http://nedbatchelder.com/code/coverage/
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
+
