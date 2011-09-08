@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.0.6 (2011-09-08)
+------------------
+#. Refactor, cleanup, self contained suite class.
+
 0.0.5 (2011-09-06)
 ------------------
 #. Added frame hack to resolve packages and py_modules to test, no longer needs app specific test suite.

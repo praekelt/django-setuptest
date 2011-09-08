@@ -11,8 +11,8 @@ description = read('README.rst') + read('AUTHORS.rst') + read('CHANGELOG.rst')
 
 setup(
     name='django-setuptest',
-    version='0.0.5',
-    description='Simple module enabling Django app testing via $ python setup.py test',
+    version='0.0.6',
+    description='Simple test suite enabling Django app testing via $ python setup.py test',
     long_description=description,
     author='Praekelt Foundation',
     author_email='dev@praekelt.com',
