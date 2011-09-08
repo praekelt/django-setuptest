@@ -22,11 +22,11 @@ Installation
 ------------
 
 #. Provide a ``test_suite`` argument to the setup call specifying the
-   the ``setuptest`` package's test suite, e.g.::
+   the ``setuptest.SetupTestSuite`` test suite, e.g.::
 
     setup(
         # ...
-        test_suite='setuptest.test_suite',
+        test_suite='setuptest.SetupTestSuite',
     )
 
 #. Provide a ``tests_require`` argument to the setup call including
