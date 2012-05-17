@@ -79,7 +79,8 @@ reports.
 .. note::
 
     An XML Coverage report is generated in a file called ``coverage.xml``
-    and a PEP8 report is generated in a file called ``pep8.txt``
+    with a html version in a folder called ``htmlcov``.
+    A PEP8 report is generated in a file called ``pep8.txt``
 
 To mute the output of the Coverage_ and `PEP 8`_ reports provide the
 ``--quiet`` option::

@@ -73,7 +73,7 @@ class SetupTestSuite(unittest.TestSuite):
 
     def coverage_report(self):
         """
-        Outputs Coverage report to screen and coverage.xml.
+        Outputs Coverage report to screen, coverage.xml and htmlcov.
         """
         verbose = '--quiet' not in sys.argv
         self.cov.stop()
@@ -84,6 +84,7 @@ class SetupTestSuite(unittest.TestSuite):
                 omit = ['*tests*']
                 self.cov.report(include=include, omit=omit)
                 self.cov.xml_report(include=include, omit=omit)
+                self.cov.html_report(include=include, omit=omit)
             except misc.CoverageException, e:
                 log.info("Coverage Exception: %s" % e)
 
