@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.0.7 (2012-06-04)
+------------------
+#. Refactor into a test command allowing for failfast commandline argument.
+
 0.0.6 (2011-09-08)
 ------------------
 #. Refactor, cleanup, self contained suite class.
