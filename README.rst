@@ -21,12 +21,31 @@ generates Coverage_ and `PEP 8`_ reports as part of the test.
 Installation
 ------------
 
-#. Provide a ``test_suite`` argument to the setup call specifying the
-   the ``setuptest.SetupTestSuite`` test suite, e.g.::
+#. Provide a ``cmdclass`` ``test`` argument to the setup call specifying the
+   ``setuptest.test`` command, e.g.::
+    
+    from setuptest import test
+
+    #...
 
     setup(
         # ...
-        test_suite='setuptest.SetupTestSuite',
+        cmdclass={'test': test},
+    )
+
+   This overrides Python's builtin ``test`` command to enable the Django 
+   testrunner as well as allowing you to pass ``--failfast`` as a commandline
+   argument, i.e.::
+
+    $ python setup.py test --failfast
+
+   Alternatively you can specify a ``test_suite`` argument to the 
+   setup call specifying the ``setuptest.setuptest.SetupTestSuite`` test 
+   suite, e.g.::
+
+    setup(
+        # ...
+        test_suite='setuptest.setupttest.SetupTestSuite',
     )
 
 #. Provide a ``tests_require`` argument to the setup call including
@@ -51,7 +70,8 @@ Installation
         'myapp',
     )
 
-#. In order for the test suite to find your tests you must provide either a ``packages`` or ``py_modules`` argument to the setup call, e.g.::
+#. In order for the test suite to find your tests you must provide either a 
+   ``packages`` or ``py_modules`` argument to the setup call, e.g.::
 
     from setuptools import setup, find_packages
     
