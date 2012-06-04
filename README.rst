@@ -45,7 +45,7 @@ Installation
 
     setup(
         # ...
-        test_suite='setuptest.setupttest.SetupTestSuite',
+        test_suite='setuptest.setuptest.SetupTestSuite',
     )
 
 #. Provide a ``tests_require`` argument to the setup call including
