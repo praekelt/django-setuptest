@@ -49,11 +49,12 @@ Installation
 
    For the ``cmdclass`` method to work ``django-setuptools`` should be 
    installed and available in your Python path prior to running the ``test`` 
-   command.
+   command, in which case ``django-setuptest`` is not required to be specified
+   as part of the ``tests_required`` argument as detailed next.
 
 #. Provide a ``tests_require`` argument to the setup call including
-   ``django-setuptest`` (required) and other package dependencies needed
-   to execute the tests, e.g.::
+   ``django-setuptest`` (required only if not already installed) and other
+   package dependencies needed to execute the tests, e.g.::
 
     setup(
         # ...
