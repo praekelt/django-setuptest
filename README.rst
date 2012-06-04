@@ -92,6 +92,11 @@ Usage
 Once correctly configured you can execute tests from the command line::
     
     $ python setup.py test
+    
+or, if you want the test suite to stop after the first test failure is 
+detected::
+
+    $ python setup.py test --failfast
 
 This should output your test results as well as Coverage_ and `PEP 8`_
 reports.
