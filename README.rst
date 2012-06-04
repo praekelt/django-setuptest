@@ -21,8 +21,16 @@ generates Coverage_ and `PEP 8`_ reports as part of the test.
 Installation
 ------------
 
-#. Provide a ``cmdclass`` ``test`` argument to the setup call specifying the
-   ``setuptest.test`` command, e.g.::
+#. Provide a ``test_suite`` argument to the setup call specifying the 
+   ``setuptest.setuptest.SetupTestSuite`` test suite, e.g.::
+
+    setup(
+        # ...
+        test_suite='setuptest.setuptest.SetupTestSuite',
+    )
+
+   Alternatively provide a ``cmdclass`` ``test`` argument to the setup call 
+   specifying the ``setuptest.test`` command, e.g.::
     
     from setuptest import test
 
@@ -39,14 +47,9 @@ Installation
 
     $ python setup.py test --failfast
 
-   Alternatively you can specify a ``test_suite`` argument to the 
-   setup call specifying the ``setuptest.setuptest.SetupTestSuite`` test 
-   suite, e.g.::
-
-    setup(
-        # ...
-        test_suite='setuptest.setuptest.SetupTestSuite',
-    )
+   For the ``cmdclass`` method to work ``django-setuptools`` should be 
+   installed and available in your Python path prior to running the ``test`` 
+   command.
 
 #. Provide a ``tests_require`` argument to the setup call including
    ``django-setuptest`` (required) and other package dependencies needed
