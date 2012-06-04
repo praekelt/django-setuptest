@@ -144,11 +144,17 @@ class SetupTestSuite(unittest.TestSuite):
                 log.info("\nPEP8 Report:")
                 log.info(result)
 
-    def run(self, *args, **kwargs):
+    def run(self, result, *args, **kwargs):
         """
         Run the test, teardown the environment and generate reports.
         """
-        result = super(SetupTestSuite, self).run(*args, **kwargs)
+        if '-f' in sys.argv:
+            result.failfast = True
+            sys.argv.remove('-f')
+        if '--failfast' in sys.argv:
+            result.failfast = True
+            sys.argv.remove('--failfast')
+        result = super(SetupTestSuite, self).run(result, *args, **kwargs)
         self.test_runner.teardown_databases(self.old_config)
         self.test_runner.teardown_test_environment()
         self.coverage_report()
