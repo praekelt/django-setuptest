@@ -5,4 +5,8 @@ class test(TestCommand):
     user_options = TestCommand.user_options + [
         ('failfast', 'f', "Test suite will stop running after the first test failure is detected.")
     ]
-    failfast = 0
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.test_suite = 'setuptest.setuptest.SetupTestSuite'
+        self.failfast = 0
