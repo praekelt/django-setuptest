@@ -59,7 +59,7 @@ Installation
         ),
     )
 
-#. Specify the test specific Django settings in a ``test_settings``
+#. Specify your test specific Django settings in a ``test_settings``
    module in the same path as your app's ``setup.py``.
    These settings will be used when executing the tests, e.g. in
    ``test_settings.py``::
