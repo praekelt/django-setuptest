@@ -21,12 +21,31 @@ generates Coverage_ and `PEP 8`_ reports as part of the test.
 Installation
 ------------
 
-#. Provide a ``test_suite`` argument to the setup call specifying the
-   the ``setuptest.SetupTestSuite`` test suite, e.g.::
+#. Provide a ``cmdclass`` ``test`` argument to the setup call specifying the
+   ``setuptest.test`` command, e.g.::
+    
+    from setuptest import test
+
+    #...
 
     setup(
         # ...
-        test_suite='setuptest.SetupTestSuite',
+        cmdclass={'test': test},
+    )
+
+   This overrides Python's builtin ``test`` command to enable the Django 
+   testrunner as well as allowing you to pass ``--failfast`` as a commandline
+   argument, i.e.::
+
+    $ python setup.py test --failfast
+
+   Alternatively you can specify a ``test_suite`` argument to the 
+   setup call specifying the ``setuptest.setuptest.SetupTestSuite`` test 
+   suite, e.g.::
+
+    setup(
+        # ...
+        test_suite='setuptest.setuptest.SetupTestSuite',
     )
 
 #. Provide a ``tests_require`` argument to the setup call including
@@ -40,7 +59,7 @@ Installation
         ),
     )
 
-#. Specify the test specific Django settings in a ``test_settings``
+#. Specify your test specific Django settings in a ``test_settings``
    module in the same path as your app's ``setup.py``.
    These settings will be used when executing the tests, e.g. in
    ``test_settings.py``::
@@ -51,7 +70,8 @@ Installation
         'myapp',
     )
 
-#. In order for the test suite to find your tests you must provide either a ``packages`` or ``py_modules`` argument to the setup call, e.g.::
+#. In order for the test suite to find your tests you must provide either a 
+   ``packages`` or ``py_modules`` argument to the setup call, e.g.::
 
     from setuptools import setup, find_packages
     
@@ -72,6 +92,11 @@ Usage
 Once correctly configured you can execute tests from the command line::
     
     $ python setup.py test
+    
+or, if you want the test suite to stop after the first test failure is 
+detected::
+
+    $ python setup.py test --failfast
 
 This should output your test results as well as Coverage_ and `PEP 8`_
 reports.
