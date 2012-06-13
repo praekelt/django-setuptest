@@ -1,5 +1,7 @@
 import pep8
 import sys
+import time
+import traceback
 import unittest
 
 from coverage import coverage, misc
@@ -43,8 +45,23 @@ class SetupTestSuite(unittest.TestSuite):
         tests = []
         for package in self.packages:
             try:
-                app = get_app(package)
-                tests.append(build_suite(app))
+                auto_reload = '--autoreload' in sys.argv or '-a' in sys.argv
+                if not auto_reload:
+                    app = get_app(package)
+                    tests.append(build_suite(app))
+                else:
+                    # Wait for exceptions to be resolved.
+                    exception = None
+                    while True:
+                        try:
+                            app = get_app(package)
+                            tests.append(build_suite(app))
+                            break
+                        except Exception, e:
+                            if exception != str(e):
+                                traceback.print_exc()
+                            exception = str(e)
+                            time.sleep(1)
             except ImproperlyConfigured, e:
                 log.info("Warning: %s" % e)
             except ImportError, e:
