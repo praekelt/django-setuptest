@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.0.8 (2012-06-13)
+------------------
+#. Added autoreload option restarting testrunner on code change detection.
+
 0.0.7 (2012-06-04)
 ------------------
 #. Refactor into a test command allowing for failfast commandline argument.
