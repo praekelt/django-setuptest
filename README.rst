@@ -140,7 +140,7 @@ Example output of dummy test including Coverage_ and `PEP 8`_ reports::
     ERROR: test_something (dummy.tests.TestCase)
     ----------------------------------------------------------------------
     Traceback (most recent call last):
-      File "/home/shaun/tmp/django-dummy/dummy/tests/__init__.py", line 6, in test_something
+      File "/home/user/tmp/django-dummy/dummy/tests/__init__.py", line 6, in test_something
         raise NotImplementedError('Test not implemented. Bad developer!')
     NotImplementedError: Test not implemented. Bad developer!
     
