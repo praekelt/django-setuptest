@@ -5,7 +5,7 @@ import unittest
 from coverage import coverage, misc
 from distutils import log
 from StringIO import StringIO
-
+            
 
 class SetupTestSuite(unittest.TestSuite):
     """
@@ -154,6 +154,10 @@ class SetupTestSuite(unittest.TestSuite):
         if '--failfast' in sys.argv:
             result.failfast = True
             sys.argv.remove('--failfast')
+        if '-a' in sys.argv:
+            sys.argv.remove('-a')
+        if '--autoreload' in sys.argv:
+            sys.argv.remove('--autoreload')
         result = super(SetupTestSuite, self).run(result, *args, **kwargs)
         self.test_runner.teardown_databases(self.old_config)
         self.test_runner.teardown_test_environment()
