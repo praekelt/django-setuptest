@@ -115,6 +115,10 @@ To mute the output of the Coverage_ and `PEP 8`_ reports provide the
 
     $ python setup.py test --quiet
 
+To auto reload tests when code changes are detected (similar to how ``runserver`` restarts) provide the ``--autoreload`` option::
+
+    $ python setup.py test --autoreload
+
 Sample Output
 -------------
 
