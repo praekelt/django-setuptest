@@ -218,6 +218,7 @@ class SetupTestSuite(unittest.TestSuite):
         """
         Run the test, teardown the environment and generate reports.
         """
+        result.failfast = self.options['failfast']
         result = super(SetupTestSuite, self).run(result, *args, **kwargs)
         self.test_runner.teardown_databases(self.old_config)
         self.test_runner.teardown_test_environment()
