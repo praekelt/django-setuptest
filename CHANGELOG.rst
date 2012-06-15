@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.0.9 (2012-06-15)
+------------------
+#. Now supports running specific test classes or methods via the label option.
+
 0.0.8 (2012-06-13)
 ------------------
 #. Added autoreload option restarting testrunner on code change detection.
