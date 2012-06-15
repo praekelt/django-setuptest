@@ -11,7 +11,7 @@ description = read('README.rst') + read('AUTHORS.rst') + read('CHANGELOG.rst')
 
 setup(
     name='django-setuptest',
-    version='0.0.9',
+    version='0.1.0',
     description='Simple test suite enabling Django app testing via $ python setup.py test',
     long_description=description,
     author='Praekelt Foundation',
@@ -19,7 +19,6 @@ setup(
     license='BSD',
     url='http://github.com/praekelt/django-setuptest',
     packages=find_packages(),
-    py_modules=['setuptest'],
     install_requires=[
         'coverage',
         'django',
