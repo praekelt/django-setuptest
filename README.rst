@@ -119,6 +119,14 @@ To automatically restart the test runner when code changes are detected (similar
 
     $ python setup.py test --autoreload
 
+To only run tests for a particular test case specify the test case as the ``--label`` option::
+
+    $ python setup.py test --label app.TestCase
+
+Or for a particular test method specify the test case's test method as the ``--label`` option::
+
+    $ python setup.py test --label app.TestCase.test_method
+
 Sample Output
 -------------
 
