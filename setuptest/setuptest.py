@@ -1,3 +1,4 @@
+import argparse
 import pep8
 import sys
 import time
@@ -7,7 +8,11 @@ import unittest
 from coverage import coverage, misc
 from distutils import log
 from StringIO import StringIO
-            
+
+
+class LabelException(Exception):
+    pass
+
 
 class SetupTestSuite(unittest.TestSuite):
     """
@@ -21,7 +26,16 @@ class SetupTestSuite(unittest.TestSuite):
         self.cov.start()
         self.packages = self.resolve_packages()
 
-        super(SetupTestSuite, self).__init__(tests=self.build_tests(), \
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-a', '--autoreload', dest='autoreload',
+                action='store_const', const=True, default=False,)
+        parser.add_argument('-f', '--failfast', dest='failfast',
+                action='store_const', const=True, default=False,)
+        parser.add_argument('-l', '--label', dest='label')
+        self.options = vars(parser.parse_args(sys.argv[2:]))
+        sys.argv = sys.argv[:2]
+
+        super(SetupTestSuite, self).__init__(tests=self.build_tests(),
                 *args, **kwargs)
 
         # Setup testrunner.
@@ -34,29 +48,67 @@ class SetupTestSuite(unittest.TestSuite):
         self.test_runner.setup_test_environment()
         self.old_config = self.test_runner.setup_databases()
 
+    def handle_label_exception(self, exception):
+        """
+        Check whether or not the exception was caused due to a bad label
+        being provided. If so raise LabelException which will cause an exit,
+        otherwise continue.
+
+        The check looks for particular error messages, which obviously sucks.
+        TODO: Implement a cleaner test.
+        """
+        markers = [
+            'no such test method',
+            'should be of the form app.TestCase or app.TestCase.test_method',
+            'App with label',
+            'does not refer to a test',
+        ]
+        if any(marker in exception.message for marker in markers):
+            log.info(exception)
+            raise LabelException(exception)
+        else:
+            raise exception
+
     def build_tests(self):
         """
         Build tests for inclusion in suite from resolved packages.
+        TODO: Cleanup/simplify this method, flow too complex,
+        too much duplication.
         """
         from django.core.exceptions import ImproperlyConfigured
         from django.db.models import get_app
-        from django.test.simple import build_suite
+        from django.test.simple import build_suite, build_test
 
         tests = []
-        for package in self.packages:
+        packages = [self.options['label'], ] if \
+                self.options['label'] else self.packages
+        for package in packages:
             try:
-                auto_reload = '--autoreload' in sys.argv or '-a' in sys.argv
-                if not auto_reload:
-                    app = get_app(package)
-                    tests.append(build_suite(app))
+                if not self.options['autoreload']:
+                    if self.options['label']:
+                        try:
+                            tests.append(build_test(package))
+                        except (ImproperlyConfigured, ValueError) as e:
+                            self.handle_label_exception(e)
+                    else:
+                        app = get_app(package)
+                        tests.append(build_suite(app))
                 else:
                     # Wait for exceptions to be resolved.
                     exception = None
                     while True:
                         try:
-                            app = get_app(package)
-                            tests.append(build_suite(app))
+                            if self.options['label']:
+                                try:
+                                    tests.append(build_test(package))
+                                except (ImproperlyConfigured, ValueError) as e:
+                                    self.handle_label_exception(e)
+                            else:
+                                app = get_app(package)
+                                tests.append(build_suite(app))
                             break
+                        except LabelException:
+                            raise
                         except Exception, e:
                             if exception != str(e):
                                 traceback.print_exc()
@@ -66,6 +118,7 @@ class SetupTestSuite(unittest.TestSuite):
                 log.info("Warning: %s" % e)
             except ImportError, e:
                 log.info("Warning: %s" % e)
+
         return tests
 
     def configure(self):
@@ -165,16 +218,6 @@ class SetupTestSuite(unittest.TestSuite):
         """
         Run the test, teardown the environment and generate reports.
         """
-        if '-f' in sys.argv:
-            result.failfast = True
-            sys.argv.remove('-f')
-        if '--failfast' in sys.argv:
-            result.failfast = True
-            sys.argv.remove('--failfast')
-        if '-a' in sys.argv:
-            sys.argv.remove('-a')
-        if '--autoreload' in sys.argv:
-            sys.argv.remove('--autoreload')
         result = super(SetupTestSuite, self).run(result, *args, **kwargs)
         self.test_runner.teardown_databases(self.old_config)
         self.test_runner.teardown_test_environment()
