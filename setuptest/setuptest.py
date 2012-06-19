@@ -194,11 +194,8 @@ class SetupTestSuite(unittest.TestSuite):
             sys.stdout = mystdout = StringIO()
 
             # Run Pep8 checks.
-            pep8.options, pep8.args = pep8.process_options()
-            pep8.args = self.packages
-            pep8.options.repeat = True
-            for package in self.packages:
-                pep8.input_dir(package)
+            pep8_style = pep8.StyleGuide()
+            pep8_style.check_files(self.packages)
 
             # Restore stdout.
             sys.stdout = old_stdout
