@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.1 (2012-06-19)
+------------------
+#. Corrections to support PEP8 backwards incompatible API update.
+
 0.0.9 (2012-06-15)
 ------------------
 #. Now supports running specific test classes or methods via the label option.
