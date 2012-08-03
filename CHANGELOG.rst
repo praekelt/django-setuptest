@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.2 (2012-07-02)
+------------------
+#. Excllude South migrations from Pep8.
+
 0.1.1 (2012-06-19)
 ------------------
 #. Corrections to support PEP8 backwards incompatible API update.
