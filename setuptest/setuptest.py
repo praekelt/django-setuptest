@@ -193,8 +193,9 @@ class SetupTestSuite(unittest.TestSuite):
             old_stdout = sys.stdout
             sys.stdout = mystdout = StringIO()
 
-            # Run Pep8 checks.
+            # Run Pep8 checks, excluding South migrations.
             pep8_style = pep8.StyleGuide()
+            pep8_style.options.exclude.append('migrations')
             pep8_style.check_files(self.packages)
 
             # Restore stdout.
