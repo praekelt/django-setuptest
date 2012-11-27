@@ -88,7 +88,7 @@ class SetupTestSuite(unittest.TestSuite):
                     if self.options['label']:
                         try:
                             tests.append(build_test(package))
-                        except (ImproperlyConfigured, ValueError) as e:
+                        except (ImproperlyConfigured, ValueError), e:
                             self.handle_label_exception(e)
                     else:
                         app = get_app(package)
@@ -101,7 +101,7 @@ class SetupTestSuite(unittest.TestSuite):
                             if self.options['label']:
                                 try:
                                     tests.append(build_test(package))
-                                except (ImproperlyConfigured, ValueError) as e:
+                                except (ImproperlyConfigured, ValueError), e:
                                     self.handle_label_exception(e)
                             else:
                                 app = get_app(package)
