@@ -23,6 +23,7 @@ setup(
         'coverage',
         'django',
         'pep8',
+        'argparse',
     ],
     classifiers=[
         "Programming Language :: Python",
