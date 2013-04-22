@@ -7,7 +7,7 @@ import unittest
 
 from coverage import coverage, misc
 from distutils import log
-from StringIO import StringIO
+from six import StringIO
 
 
 class LabelException(Exception):
@@ -109,14 +109,14 @@ class SetupTestSuite(unittest.TestSuite):
                             break
                         except LabelException:
                             raise
-                        except Exception, e:
+                        except Exception as e:
                             if exception != str(e):
                                 traceback.print_exc()
                             exception = str(e)
                             time.sleep(1)
-            except ImproperlyConfigured, e:
+            except ImproperlyConfigured as e:
                 log.info("Warning: %s" % e)
-            except ImportError, e:
+            except ImportError as e:
                 log.info("Warning: %s" % e)
 
         return tests
@@ -129,7 +129,7 @@ class SetupTestSuite(unittest.TestSuite):
         from django.utils.importlib import import_module
         try:
             test_settings = import_module('test_settings')
-        except ImportError, e:
+        except ImportError as e:
             log.info('ImportError: Unable to import test settings: %s' % e)
             sys.exit(1)
 
@@ -155,7 +155,7 @@ class SetupTestSuite(unittest.TestSuite):
                 self.cov.report(include=include, omit=omit)
                 self.cov.xml_report(include=include, omit=omit)
                 self.cov.html_report(include=include, omit=omit)
-            except misc.CoverageException, e:
+            except misc.CoverageException as e:
                 log.info("Coverage Exception: %s" % e)
 
     def resolve_packages(self):

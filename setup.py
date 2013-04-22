@@ -24,6 +24,7 @@ setup(
         'django',
         'pep8',
         'argparse',
+        'six',
     ],
     classifiers=[
         "Programming Language :: Python",

@@ -2,7 +2,7 @@ import os
 import sys
 
 from setuptools.command.test import test as TestCommand
-from setuptest import LabelException
+from .setuptest import LabelException
 
 class test(TestCommand):
     user_options = TestCommand.user_options + [
