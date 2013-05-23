@@ -23,7 +23,6 @@ setup(
         'coverage',
         'django',
         'pep8',
-        'argparse',
         'six',
     ],
     classifiers=[

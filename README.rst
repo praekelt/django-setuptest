@@ -47,7 +47,7 @@ Installation
 
     $ python setup.py test --failfast
 
-   For the ``cmdclass`` method to work ``django-setuptest`` should be 
+   For the ``cmdclass`` method to work ``django-setuptools`` should be 
    installed and available in your Python path prior to running the ``test`` 
    command, in which case ``django-setuptest`` is not required to be specified
    as part of the ``tests_required`` argument as detailed next.
@@ -108,8 +108,7 @@ reports.
 .. note::
 
     An XML Coverage report is generated in a file called ``coverage.xml``
-    with a html version in a folder called ``htmlcov``.
-    A PEP8 report is generated in a file called ``pep8.txt``
+    and a PEP8 report is generated in a file called ``pep8.txt``
 
 To mute the output of the Coverage_ and `PEP 8`_ reports provide the
 ``--quiet`` option::
