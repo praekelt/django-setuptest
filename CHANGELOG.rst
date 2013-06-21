@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.4 (2013-06-21)
+------------------
+#. South patches the test management command to handle the SOUTH_TESTS_MIGRATE setting. Apply that patch if South is installed.
+
 0.1.3 (2013-05-23)
 ------------------
 #. Python 3 compatibility.
