@@ -45,6 +45,13 @@ class SetupTestSuite(unittest.TestSuite):
             interactive=True,
             failfast=False
         )
+        # South patches the test management command to handle the
+        # SOUTH_TESTS_MIGRATE setting. Apply that patch if South is installed.
+        try:
+            from south.management.commands import patch_for_test_db_setup
+            patch_for_test_db_setup()
+        except ImportError:
+            pass
         self.test_runner.setup_test_environment()
         self.old_config = self.test_runner.setup_databases()
 
