@@ -7,7 +7,7 @@ import unittest
 
 from coverage import coverage, misc
 from distutils import log
-from six import StringIO
+from django.utils.six import StringIO
 
 
 class LabelException(Exception):
