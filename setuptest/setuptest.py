@@ -122,9 +122,9 @@ class SetupTestSuite(unittest.TestSuite):
                             exception = str(e)
                             time.sleep(1)
             except ImproperlyConfigured as e:
-                log.info("Warning: %s" % e)
+                log.info("Warning: %s" % traceback.format_exc())
             except ImportError as e:
-                log.info("Warning: %s" % e)
+                log.info("Warning: %s" % traceback.format_exc())
 
         return tests
 
