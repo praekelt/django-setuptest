@@ -21,9 +21,9 @@ class SetupTestSuite(unittest.TestSuite):
     Also runs PEP8 and Coverage checks.
     """
     def __init__(self, *args, **kwargs):
-        self.configure()
         self.cov = coverage()
         self.cov.start()
+        self.configure()
         self.packages = self.resolve_packages()
 
         parser = argparse.ArgumentParser()
