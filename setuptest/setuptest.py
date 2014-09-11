@@ -21,9 +21,9 @@ class SetupTestSuite(unittest.TestSuite):
     Also runs PEP8 and Coverage checks.
     """
     def __init__(self, *args, **kwargs):
-        self.configure()
         self.cov = coverage()
         self.cov.start()
+        self.configure()
         self.packages = self.resolve_packages()
 
         parser = argparse.ArgumentParser()
@@ -83,9 +83,12 @@ class SetupTestSuite(unittest.TestSuite):
         too much duplication.
         """
         from django.core.exceptions import ImproperlyConfigured
-        from django.db.models import get_app
         from django.test.simple import build_suite, build_test
-
+        try:
+            from django.apps import apps
+            get_app = apps.get_app_config
+        except ImportError:
+            from django.db.models import get_app
         tests = []
         packages = [self.options['label'], ] if \
                 self.options['label'] else self.packages
@@ -122,9 +125,9 @@ class SetupTestSuite(unittest.TestSuite):
                             exception = str(e)
                             time.sleep(1)
             except ImproperlyConfigured as e:
-                log.info("Warning: %s" % e)
+                log.info("Warning: %s" % traceback.format_exc())
             except ImportError as e:
-                log.info("Warning: %s" % e)
+                log.info("Warning: %s" % traceback.format_exc())
 
         return tests
 
@@ -132,6 +135,8 @@ class SetupTestSuite(unittest.TestSuite):
         """
         Configures Django settings.
         """
+
+        import django
         from django.conf import settings
         from django.utils.importlib import import_module
         try:
@@ -147,6 +152,9 @@ class SetupTestSuite(unittest.TestSuite):
 
         if not settings.configured:
             settings.configure(**setting_attrs)
+
+        if hasattr(django, 'setup'):
+            django.setup()
 
     def coverage_report(self):
         """

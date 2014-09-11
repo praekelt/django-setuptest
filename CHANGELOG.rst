@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.5 (2014-09-11)
+------------------
+#. Introduced support for Django 1.7.
+
 0.1.4 (2013-06-21)
 ------------------
 #. South patches the test management command to handle the SOUTH_TESTS_MIGRATE setting. Apply that patch if South is installed.
