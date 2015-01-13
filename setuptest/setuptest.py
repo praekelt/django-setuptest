@@ -1,4 +1,5 @@
 import argparse
+import django
 import pep8
 import sys
 import time
@@ -7,7 +8,7 @@ import unittest
 
 from coverage import coverage, misc
 from distutils import log
-from six import StringIO
+from django.utils.six import StringIO
 
 
 class LabelException(Exception):
@@ -47,11 +48,12 @@ class SetupTestSuite(unittest.TestSuite):
         )
         # South patches the test management command to handle the
         # SOUTH_TESTS_MIGRATE setting. Apply that patch if South is installed.
-        try:
-            from south.management.commands import patch_for_test_db_setup
-            patch_for_test_db_setup()
-        except ImportError:
-            pass
+        if django.VERSION < (1,7):
+            try:
+                from south.management.commands import patch_for_test_db_setup
+                patch_for_test_db_setup()
+            except ImportError:
+                pass
         self.test_runner.setup_test_environment()
         self.old_config = self.test_runner.setup_databases()
 
@@ -168,6 +170,7 @@ class SetupTestSuite(unittest.TestSuite):
                 include = ['%s*' % package for package in self.packages]
                 omit = ['*tests*']
                 self.cov.report(include=include, omit=omit)
+                self.cov.save()
                 self.cov.xml_report(include=include, omit=omit)
             except misc.CoverageException as e:
                 log.info("Coverage Exception: %s" % e)
