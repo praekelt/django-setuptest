@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.6 (2015-01-13)
+------------------
+#. Added saving of raw coverage data
+
 0.1.5 (2014-09-11)
 ------------------
 #. Introduced support for Django 1.7.
