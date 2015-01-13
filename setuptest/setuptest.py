@@ -170,6 +170,7 @@ class SetupTestSuite(unittest.TestSuite):
                 include = ['%s*' % package for package in self.packages]
                 omit = ['*tests*']
                 self.cov.report(include=include, omit=omit)
+                self.cov.save()
                 self.cov.xml_report(include=include, omit=omit)
             except misc.CoverageException as e:
                 log.info("Coverage Exception: %s" % e)
