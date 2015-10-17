@@ -18,7 +18,7 @@ class LabelException(Exception):
 class SetupTestSuite(unittest.TestSuite):
     """
     Test Suite configuring Django settings and using
-    DjangoTestSuiteRunner as test runner.
+    DiscoverRunner or DjangoTestSuiteRunner as the test runner.
     Also runs PEP8 and Coverage checks.
     """
     def __init__(self, *args, **kwargs):
@@ -36,16 +36,23 @@ class SetupTestSuite(unittest.TestSuite):
         self.options = vars(parser.parse_args(sys.argv[2:]))
         sys.argv = sys.argv[:2]
 
-        super(SetupTestSuite, self).__init__(tests=self.build_tests(),
-                *args, **kwargs)
+        runner_options = {
+            'verbosity': 1,
+            'interactive': True,
+            'failfast': False,
+        }
 
-        # Setup testrunner.
-        from django.test.simple import DjangoTestSuiteRunner
-        self.test_runner = DjangoTestSuiteRunner(
-            verbosity=1,
-            interactive=True,
-            failfast=False
-        )
+        if django.VERSION >= (1, 8):
+            from django.test.runner import DiscoverRunner
+            self.test_runner = DiscoverRunner(**runner_options)
+            tests = self.test_runner.build_suite()
+        else:
+            from django.test.simple import DjangoTestSuiteRunner
+            self.test_runner = DjangoTestSuiteRunner(**runner_options)
+            tests = self.build_tests()
+
+        super(SetupTestSuite, self).__init__(tests=tests, *args, **kwargs)
+
         # South patches the test management command to handle the
         # SOUTH_TESTS_MIGRATE setting. Apply that patch if South is installed.
         if django.VERSION < (1,7):
@@ -80,7 +87,7 @@ class SetupTestSuite(unittest.TestSuite):
 
     def build_tests(self):
         """
-        Build tests for inclusion in suite from resolved packages.
+        Build tests for inclusion in suite from resolved packages for <= 1.8
         TODO: Cleanup/simplify this method, flow too complex,
         too much duplication.
         """
