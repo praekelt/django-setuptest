@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.2 (2015-10-30)
+----------------
 #. Django 1.8 support (lamby).
 #. Exclude south_migrations from PEP8 checks (mikebryant).
 
