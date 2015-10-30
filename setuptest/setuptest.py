@@ -214,6 +214,7 @@ class SetupTestSuite(unittest.TestSuite):
             # Run Pep8 checks, excluding South migrations.
             pep8_style = pep8.StyleGuide()
             pep8_style.options.exclude.append('migrations')
+            pep8_style.options.exclude.append('south_migrations')
             pep8_style.check_files(self.packages)
 
             # Restore stdout.
