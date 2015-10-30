@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.2 (2015-10-30)
+----------------
+#. Django 1.8 support (lamby).
+#. Exclude south_migrations from PEP8 checks (mikebryant).
+
 0.1.6 (2015-01-13)
 ------------------
 #. Added saving of raw coverage data
