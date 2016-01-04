@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Support Django 1.9.
+
 0.2 (2015-10-30)
 ----------------
 #. Django 1.8 support (lamby).
